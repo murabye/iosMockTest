@@ -20,10 +20,10 @@ class SignVC: UIViewController {
 
     func enterCheck() -> Bool {
         if loginLabel.text == nil || passwordLabel.text == "" {
-            return
+            return false
         }
         if passwordLabel.text == nil || passwordLabel.text == "" {
-            return
+            return false
         }
         if (UserDefaults.standard.value(forKey: loginLabel.text!) as? String) == passwordLabel.text! {
             UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIView.AnimationOptions.allowAnimatedContent, animations: {
@@ -34,7 +34,7 @@ class SignVC: UIViewController {
             _ = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false, block: { (_) in
                 self.performSegue(withIdentifier: "Enter", sender: nil)
             })
-            
+            return true
         } else {
             UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIView.AnimationOptions.allowAnimatedContent, animations: {
                 self.appleImg.frame.size.height += 20
@@ -45,6 +45,7 @@ class SignVC: UIViewController {
                 self.appleImg.tintColor = UIColor.black
             }, completion: nil)
         }
+        return false
     }
     
     @IBAction func enterAction(_ sender: Any) {

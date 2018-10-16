@@ -21,18 +21,18 @@ class AddViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-    @IBAction func saveAction(_ sender: Any) {
+    fileprivate func saveCheck() -> Bool {
         if nameField.text == "" {
             showShortAlert(message: "Заполните поле имя!")
-            return
+            return false
         }
         if postField.text == "" {
             showShortAlert(message: "Заполните поле должность!")
-            return
+            return false
         }
         if wageField.text == "" {
             showShortAlert(message: "Заполните поле зарплата!")
-            return
+            return false
         }
         let employee = [
             "name" : nameField.text!,
@@ -42,7 +42,7 @@ class AddViewController: UITableViewController {
             "haveExp" : expSwitch.isOn,
             "startDate" : startDatePicker.date
             ] as [String : Any]
-
+        
         if UserDefaults.getPeopleList() != nil {
             var arrayEpmloee = UserDefaults.getPeopleList()!
             arrayEpmloee.append(employee)
@@ -51,6 +51,11 @@ class AddViewController: UITableViewController {
             UserDefaults.standard.set([employee], forKey: "peopleList")
         }
         showShortAlert(message: "Сохранено!")
+        return true
+    }
+    
+    @IBAction func saveAction(_ sender: Any) {
+        saveCheck()
     }
 
     func showShortAlert(message: String) {

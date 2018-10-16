@@ -32,12 +32,12 @@ class ChangeViewController: UITableViewController {
     
     
 
-    @IBAction func searchAction(_ sender: Any) {
+    fileprivate func searchCheck() -> Bool{
         if searchField.text == "" {
             showShortAlert(message: "Введите имя сотрудника!")
-            return
+            return false
         }
-
+        
         let emploeeArray = UserDefaults.getPeopleList()!
         
         for i in 0..<emploeeArray.count {
@@ -49,25 +49,30 @@ class ChangeViewController: UITableViewController {
         
         if selectedEmployee == nil {
             showShortAlert(message: "Сотрудника с таким именем нет!")
-            return
+            return false
         }
         postField.placeholder = (selectedEmployee!["post"]! as! String)
         statusSwitch.isOn = (selectedEmployee!["status"]! as! Bool)
         wageField.placeholder = String(selectedEmployee!["wage"]! as! UInt)
         saveButton.isEnabled = true
+        return true
+    }
+    
+    @IBAction func searchAction(_ sender: Any) {
+        searchCheck()
     }
     
 
     
     
-    @IBAction func saveAction(_ sender: Any) {
+    fileprivate func saveCheck() -> Bool {
         if postField.text == "" {
             showShortAlert(message: "Заполните поле должность!")
-            return
+            return false
         }
         if wageField.text == "" {
             showShortAlert(message: "Заполните поле зарплата!")
-            return
+            return false
         }
         
         selectedEmployee!["post"] = postField.text
@@ -82,6 +87,11 @@ class ChangeViewController: UITableViewController {
         wageField.text = ""
         
         showShortAlert(message: "Изменение успешно!")
+        return true
+    }
+    
+    @IBAction func saveAction(_ sender: Any) {
+        saveCheck()
     }
     
     func showShortAlert(message: String) {
