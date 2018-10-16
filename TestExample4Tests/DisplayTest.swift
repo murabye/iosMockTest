@@ -42,9 +42,7 @@ class DisplayTest: XCTestCase {
     override func tearDown() {
     }
     
-    func testRegistration() {
-        XCTAssertEqual(<#T##expression1: Equatable##Equatable#>, <#T##expression2: Equatable##Equatable#>)
-    }
+
     
     func testPerformanceExample() {
         // This is an example of a performance test case.

@@ -18,6 +18,13 @@ extension UserDefaults {
         }
         return UserDefaults.standard.value(forKey: "peopleList") as? [[String: Any]]
     }
+    static func setPeopleList(peoples: ([[String: Any]])) {
+        if isDebug {
+            mockedFile = peoples
+        } else {
+            UserDefaults.standard.set(peoples, forKey: "peopleList")
+        }
+    }
     
     
 }

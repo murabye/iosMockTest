@@ -81,7 +81,7 @@ class ChangeViewController: UITableViewController {
         
         var employee = UserDefaults.getPeopleList()!
         employee[selectedIndex!] = selectedEmployee!
-        UserDefaults.standard.set(employee, forKey: "peopleList")
+        UserDefaults.setPeopleList(peoples: employee)
         
         postField.text = ""
         wageField.text = ""

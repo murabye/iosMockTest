@@ -12,7 +12,15 @@ import XCTest
 class TestExample4Tests: XCTestCase {
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        UserDefaults.mockedFile = [[
+            "name" : "Vova",
+            "post" : "Professor",
+            "status" : true,
+            "wage" : UInt(8500),
+            "haveExp" : true,
+            "startDate" : Date.init()
+    ]]
+        UserDefaults.isDebug = true
     }
 
     override func tearDown() {
@@ -56,13 +64,6 @@ class TestExample4Tests: XCTestCase {
         XCTAssertEqual(true, vc.saveCheck())
         XCTAssertEqual(true, vc.searchCheck())
         XCTAssertEqual(vc.wageField.placeholder, "145")
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
     }
 
 }
