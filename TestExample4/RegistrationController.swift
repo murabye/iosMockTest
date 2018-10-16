@@ -38,6 +38,9 @@ class RegistrationController: UIViewController {
                 nil, preferredStyle: UIAlertController.Style.actionSheet)
             
             self.present(alertController, animated: true, completion: nil)
+            let _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
+                alertController.dismiss(animated: true, completion: nil)
+            })
         }
     }
     
