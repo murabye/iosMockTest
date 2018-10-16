@@ -28,15 +28,39 @@ class DisplayController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return 6
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell.init(style: UITableViewCell.CellStyle.value1, reuseIdentifier: nil)
         
-        cell.textLabel!.text = "Говновоз"
-        cell.detailTextLabel?.text = "Petrov"
-        
+        switch indexPath.row {
+        case 0:
+            cell.textLabel!.text = "Имя"
+            cell.detailTextLabel!.text = "Петров"
+        case 1:
+            cell.textLabel!.text = "Должность"
+            cell.detailTextLabel!.text = "Говновоз"
+        case 2:
+            cell.textLabel!.text = "Статус"
+            cell.detailTextLabel!.text = true ? "Активен" : "Неактивен"
+        case 3:
+            cell.textLabel!.text = "Зарплата"
+            cell.detailTextLabel!.text = "1637" + "Р"
+        case 4:
+            cell.textLabel!.text = "Опыт при приеме"
+            cell.detailTextLabel!.text = true ? "Был" : "Не был"
+        case 5:
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            dateFormatter.locale = Locale(identifier: "ru_RU")
+            
+            cell.textLabel!.text = "Дата приема"
+            cell.detailTextLabel!.text = dateFormatter.string(from: Date())
+        default:
+            break
+        }
         
         return cell
     }
