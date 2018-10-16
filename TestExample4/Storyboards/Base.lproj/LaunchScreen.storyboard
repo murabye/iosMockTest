@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +16,36 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ВОВА КРУТОЙ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyy-4g-Rsf">
+                                <rect key="frame" x="47" y="308.5" width="281" height="50.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Apple" translatesAutoresizingMaskIntoConstraints="NO" id="Dip-Or-j1z">
+                                <rect key="frame" x="160.5" y="206.5" width="54" height="54"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="GP9-Yb-MsY"/>
+                                    <constraint firstAttribute="height" constant="54" id="S7u-vj-cF6"/>
+                                </constraints>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aVP-KV-K7Y">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items/>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Dip-Or-j1z" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="36X-v9-cqp"/>
+                            <constraint firstItem="cyy-4g-Rsf" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="IJ1-ji-f5Q"/>
+                            <constraint firstItem="aVP-KV-K7Y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NOx-VF-vS6"/>
+                            <constraint firstItem="cyy-4g-Rsf" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ckR-6B-rmR"/>
+                            <constraint firstItem="aVP-KV-K7Y" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="gLy-bF-McO"/>
+                            <constraint firstItem="aVP-KV-K7Y" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="liL-mA-a9k"/>
+                            <constraint firstItem="Dip-Or-j1z" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-100" id="xqP-m6-dDj"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -22,4 +54,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Apple" width="2000" height="2396"/>
+    </resources>
 </document>
