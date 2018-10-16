@@ -65,7 +65,7 @@ class DisplayController: UITableViewController {
             cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["status"] as! Bool ? "Активен" : "Неактивен"
         case 3:
             cell.textLabel!.text = "Зарплата"
-            cell.detailTextLabel!.text = String(filteredEmployees![indexPath.section]["wage"] as! UInt) + "Р"
+            cell.detailTextLabel!.text = String(filteredEmployees![indexPath.section]["wage"] as! Int) + "Р"
         case 4:
             cell.textLabel!.text = "Опыт при приеме"
             cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["haveExp"] as! Bool ? "Был" : "Не был"

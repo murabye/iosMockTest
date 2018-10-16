@@ -21,7 +21,6 @@ class TestExample4Tests: XCTestCase {
 
     func testAdd() {
         let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "add") as! AddViewController
-        UIWindow.
         vc.expSwitch.isOn = true
         vc.nameField.text = "Vova"
         vc.postField.text = "Professor"
