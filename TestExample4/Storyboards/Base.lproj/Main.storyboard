@@ -584,8 +584,14 @@
                                 <segment title="Active"/>
                                 <segment title="Nonactive"/>
                             </segments>
+                            <connections>
+                                <action selector="segmentDidChange:" destination="fFP-Gb-af9" eventType="valueChanged" id="Vny-ju-CGE"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
+                    <connections>
+                        <outlet property="segmentControl" destination="iC2-LZ-ubI" id="f6U-C0-OpD"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ao5-n3-96U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

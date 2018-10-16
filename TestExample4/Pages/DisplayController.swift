@@ -9,25 +9,43 @@
 import UIKit
 
 class DisplayController: UITableViewController {
-
+    var employees:[[String:Any]]?
+    var filteredEmployees:[[String:Any]]?
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        employees = (UserDefaults.standard.value(forKey: "peopleList") as! [[String: Any]])
+        filteredEmployees = employees
+    }
+    
+    @IBAction func segmentDidChange(_ sender: Any) {
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            filteredEmployees = employees
+        case 1:
+            filteredEmployees = employees?.filter({ (employee) -> Bool in
+                return employee["status"] as! Bool
+            })
+        case 2:
+            filteredEmployees = employees?.filter({ (employee) -> Bool in
+                return employee["status"] as! Bool
+            })
+        default:
+            break
+        }
+    }
+    
     //MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 2
+        return filteredEmployees?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 6
     }
 
@@ -37,19 +55,19 @@ class DisplayController: UITableViewController {
         switch indexPath.row {
         case 0:
             cell.textLabel!.text = "Имя"
-            cell.detailTextLabel!.text = "Петров"
+            cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["name"] as? String
         case 1:
             cell.textLabel!.text = "Должность"
-            cell.detailTextLabel!.text = "Говновоз"
+            cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["post"] as? String
         case 2:
             cell.textLabel!.text = "Статус"
-            cell.detailTextLabel!.text = true ? "Активен" : "Неактивен"
+            cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["status"] as! Bool ? "Активен" : "Неактивен"
         case 3:
             cell.textLabel!.text = "Зарплата"
-            cell.detailTextLabel!.text = "1637" + "Р"
+            cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["wage"] as! String + "Р"
         case 4:
             cell.textLabel!.text = "Опыт при приеме"
-            cell.detailTextLabel!.text = true ? "Был" : "Не был"
+            cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["haveExp"] as! Bool ? "Был" : "Не был"
         case 5:
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
@@ -57,7 +75,7 @@ class DisplayController: UITableViewController {
             dateFormatter.locale = Locale(identifier: "ru_RU")
             
             cell.textLabel!.text = "Дата приема"
-            cell.detailTextLabel!.text = dateFormatter.string(from: Date())
+            cell.detailTextLabel!.text = dateFormatter.string(from: filteredEmployees![indexPath.section]["startDate"] as! Date)
         default:
             break
         }
