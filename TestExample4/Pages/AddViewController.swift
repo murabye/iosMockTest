@@ -34,7 +34,7 @@ class AddViewController: UITableViewController {
             showShortAlert(message: "Заполните поле зарплата!")
             return
         }
-        let emploee = [
+        let employee = [
             "name" : nameField.text!,
             "post" : postField.text!,
             "status" : statusSwitch.isOn,
@@ -45,10 +45,10 @@ class AddViewController: UITableViewController {
 
         if UserDefaults.standard.value(forKey: "peopleList") != nil {
             var arrayEpmloee = UserDefaults.standard.value(forKey: "peopleList") as! [[String: Any]]
-            arrayEpmloee.append(emploee)
+            arrayEpmloee.append(employee)
             UserDefaults.standard.set(arrayEpmloee, forKey: "peopleList")
         } else {
-            UserDefaults.standard.set([emploee], forKey: "peopleList")
+            UserDefaults.standard.set([employee], forKey: "peopleList")
         }
         showShortAlert(message: "Сохранено!")
     }
