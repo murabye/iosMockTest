@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Employee {
+class Employee: NSObject {
     var name: String = ""
     var post: String = ""
     var status = false
