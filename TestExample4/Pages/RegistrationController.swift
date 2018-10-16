@@ -20,15 +20,15 @@ class RegistrationController: UIViewController {
     }
     
 
-    @IBAction func register(_ sender: Any) {
+    fileprivate func registerCheck() -> Bool{
         if loginField.text == nil {
-            return
+            return false
         }
         if passwordField.text == nil {
-            return
+            return false
         }
         if confirmPasswordField.text == nil {
-            return
+            return false
         }
         
         if register(login: loginField.text!,
@@ -41,7 +41,13 @@ class RegistrationController: UIViewController {
             let _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
                 alertController.dismiss(animated: true, completion: nil)
             })
+            return true
         }
+        return false
+    }
+    
+    @IBAction func register(_ sender: Any) {
+        registerCheck()
     }
     
     func register (login : String, password: String, confirmPassword: String) -> Bool {

@@ -11,10 +11,10 @@ import UIKit
 extension UserDefaults {
     static var isDebug = false
     
-    static func getDefaults() -> UserDefaults {
+    static func getPeopleList() -> [[String: Any]] {
         if isDebug {
-            return UserDefaults.standard
+            return UserDefaults.standard.value(forKey: "peopleList") as! [[String: Any]]
         }
-        return UserDefaults.standard
+        return UserDefaults.standard.value(forKey: "peopleList") as! [[String: Any]]
     }
 }
