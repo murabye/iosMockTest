@@ -21,7 +21,7 @@ class ChangeViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         saveButton.isEnabled = false
-        if UserDefaults.standard.value(forKey: "peopleList") == nil {
+        if UserDefaults.getPeopleList() == nil {
             showShortAlert(message: "Список пуст!")
             searchField.isEnabled = false
         } else {
@@ -38,7 +38,7 @@ class ChangeViewController: UITableViewController {
             return
         }
 
-        let emploeeArray = UserDefaults.standard.value(forKey: "peopleList") as! [[String: Any]]
+        let emploeeArray = UserDefaults.getPeopleList()!
         
         for i in 0..<emploeeArray.count {
             if (emploeeArray[i]["name"] as! String) == searchField.text {
@@ -74,7 +74,7 @@ class ChangeViewController: UITableViewController {
         selectedEmployee!["status"] = statusSwitch.isOn
         selectedEmployee!["wage"] = UInt(wageField.text!)!
         
-        var employee = UserDefaults.standard.value(forKey: "peopleList") as! [[String: Any]]
+        var employee = UserDefaults.getPeopleList()!
         employee[selectedIndex!] = selectedEmployee!
         UserDefaults.standard.set(employee, forKey: "peopleList")
         

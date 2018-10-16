@@ -19,7 +19,7 @@ class DisplayController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        employees = (UserDefaults.standard.value(forKey: "peopleList") as! [[String: Any]])
+        employees = UserDefaults.getPeopleList()
         filteredEmployees = employees
     }
     

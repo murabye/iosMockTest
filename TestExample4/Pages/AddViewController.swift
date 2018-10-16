@@ -43,8 +43,8 @@ class AddViewController: UITableViewController {
             "startDate" : startDatePicker.date
             ] as [String : Any]
 
-        if UserDefaults.standard.value(forKey: "peopleList") != nil {
-            var arrayEpmloee = UserDefaults.standard.value(forKey: "peopleList") as! [[String: Any]]
+        if UserDefaults.getPeopleList() != nil {
+            var arrayEpmloee = UserDefaults.getPeopleList()!
             arrayEpmloee.append(employee)
             UserDefaults.standard.set(arrayEpmloee, forKey: "peopleList")
         } else {
