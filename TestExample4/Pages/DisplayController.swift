@@ -33,11 +33,12 @@ class DisplayController: UITableViewController {
             })
         case 2:
             filteredEmployees = employees?.filter({ (employee) -> Bool in
-                return employee["status"] as! Bool
+                return !(employee["status"] as! Bool)
             })
         default:
             break
         }
+        tableView.reloadData()
     }
     
     //MARK: - Table view data source
@@ -64,7 +65,7 @@ class DisplayController: UITableViewController {
             cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["status"] as! Bool ? "Активен" : "Неактивен"
         case 3:
             cell.textLabel!.text = "Зарплата"
-            cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["wage"] as! String + "Р"
+            cell.detailTextLabel!.text = String(filteredEmployees![indexPath.section]["wage"] as! UInt) + "Р"
         case 4:
             cell.textLabel!.text = "Опыт при приеме"
             cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["haveExp"] as! Bool ? "Был" : "Не был"
