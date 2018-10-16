@@ -271,7 +271,7 @@
         <!--Создание-->
         <scene sceneID="x5Q-QZ-4AI">
             <objects>
-                <tableViewController id="s6y-Yv-wiz" customClass="AddViewController" customModule="TestExample4" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="add" id="s6y-Yv-wiz" customClass="AddViewController" customModule="TestExample4" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ZoY-fz-GaH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -456,7 +456,7 @@
         <!--Изменение-->
         <scene sceneID="sOt-N1-vtQ">
             <objects>
-                <tableViewController id="8lH-um-aH2" customClass="ChangeViewController" customModule="TestExample4" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="change" id="8lH-um-aH2" customClass="ChangeViewController" customModule="TestExample4" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="bkf-JB-ZCP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -679,7 +679,7 @@
         <!--Display Controller-->
         <scene sceneID="zEX-Vy-4Q0">
             <objects>
-                <tableViewController id="fFP-Gb-af9" customClass="DisplayController" customModule="TestExample4" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="search" id="fFP-Gb-af9" customClass="DisplayController" customModule="TestExample4" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" sectionIndexMinimumDisplayRowCount="-1" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="x5a-hw-1Os">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
