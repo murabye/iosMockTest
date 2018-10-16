@@ -32,7 +32,7 @@ class ChangeViewController: UITableViewController {
     
     
 
-    fileprivate func searchCheck() -> Bool{
+    func searchCheck() -> Bool{
         if searchField.text == "" {
             showShortAlert(message: "Введите имя сотрудника!")
             return false
@@ -65,7 +65,7 @@ class ChangeViewController: UITableViewController {
 
     
     
-    fileprivate func saveCheck() -> Bool {
+    func saveCheck() -> Bool {
         if postField.text == "" {
             showShortAlert(message: "Заполните поле должность!")
             return false

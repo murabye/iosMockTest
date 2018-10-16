@@ -21,7 +21,7 @@ class AddViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-    fileprivate func saveCheck() -> Bool {
+    func saveCheck() -> Bool {
         if nameField.text == "" {
             showShortAlert(message: "Заполните поле имя!")
             return false
