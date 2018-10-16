@@ -10,11 +10,14 @@ import UIKit
 
 extension UserDefaults {
     static var isDebug = false
+    static var mockedFile: [[String: Any]]?
     
     static func getPeopleList() -> [[String: Any]]? {
         if isDebug {
-            return UserDefaults.standard.value(forKey: "peopleList") as? [[String: Any]]
+            return mockedFile
         }
         return UserDefaults.standard.value(forKey: "peopleList") as? [[String: Any]]
     }
+    
+    
 }
