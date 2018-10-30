@@ -146,8 +146,8 @@
 		B69DB4962161E69500371B20 /* TestExample4 */ = {
 			isa = PBXGroup;
 			children = (
-				5DDF0DB22188A5A800B61E80 /* databases */,
 				B69DB4A32161E69700371B20 /* Info.plist */,
+				5DDF0DB22188A5A800B61E80 /* databases */,
 				5D84E4552176307500D5DBCD /* Storyboards */,
 				5D84E45421762DC600D5DBCD /* Supporting Files */,
 				5D84E45321762D9600D5DBCD /* Pages */,

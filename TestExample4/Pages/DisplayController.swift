@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import CoreData
 
 class DisplayController: UITableViewController {
-    var employees:[[String:Any]]?
-    var filteredEmployees:[[String:Any]]?
+    var filteredEmployees:[Person]?
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     override func viewDidLoad() {
@@ -19,21 +19,33 @@ class DisplayController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        employees = UserDefaults.getPeopleList()
-        filteredEmployees = employees
+        let request: NSFetchRequest<Person> = Person.fetchRequest()
+        
+        do {
+            filteredEmployees = try PersistenceService.context.fetch(request)
+        } catch {
+            filteredEmployees = []
+        }
     }
     
     @IBAction func segmentDidChange(_ sender: Any) {
+        let request: NSFetchRequest<Person> = Person.fetchRequest()
+        do {
+            filteredEmployees = try PersistenceService.context.fetch(request)
+        } catch {
+            filteredEmployees = []
+        }
+        
         switch segmentControl.selectedSegmentIndex {
         case 0:
-            filteredEmployees = employees
+            break
         case 1:
-            filteredEmployees = employees?.filter({ (employee) -> Bool in
-                return employee["status"] as! Bool
+            filteredEmployees = filteredEmployees?.filter({ (employee) -> Bool in
+                return employee.status
             })
         case 2:
-            filteredEmployees = employees?.filter({ (employee) -> Bool in
-                return !(employee["status"] as! Bool)
+            filteredEmployees = filteredEmployees?.filter({ (employee) -> Bool in
+                return !employee.status
             })
         default:
             break
@@ -56,19 +68,19 @@ class DisplayController: UITableViewController {
         switch indexPath.row {
         case 0:
             cell.textLabel!.text = "Имя"
-            cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["name"] as? String
+            cell.detailTextLabel!.text = filteredEmployees![indexPath.section].name
         case 1:
             cell.textLabel!.text = "Должность"
-            cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["post"] as? String
+            cell.detailTextLabel!.text = filteredEmployees![indexPath.section].post
         case 2:
             cell.textLabel!.text = "Статус"
-            cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["status"] as! Bool ? "Активен" : "Неактивен"
+            cell.detailTextLabel!.text = filteredEmployees![indexPath.section].status ? "Активен" : "Неактивен"
         case 3:
             cell.textLabel!.text = "Зарплата"
-            cell.detailTextLabel!.text = String(filteredEmployees![indexPath.section]["wage"] as! Int) + "Р"
+            cell.detailTextLabel!.text = String(filteredEmployees![indexPath.section].wage) + "Р"
         case 4:
             cell.textLabel!.text = "Опыт при приеме"
-            cell.detailTextLabel!.text = filteredEmployees![indexPath.section]["haveExp"] as! Bool ? "Был" : "Не был"
+            cell.detailTextLabel!.text = filteredEmployees![indexPath.section].exp ? "Был" : "Не был"
         case 5:
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
@@ -76,7 +88,7 @@ class DisplayController: UITableViewController {
             dateFormatter.locale = Locale(identifier: "ru_RU")
             
             cell.textLabel!.text = "Дата приема"
-            cell.detailTextLabel!.text = dateFormatter.string(from: filteredEmployees![indexPath.section]["startDate"] as! Date)
+            cell.detailTextLabel!.text = dateFormatter.string(from: filteredEmployees![indexPath.section].startDate! as Date)
         default:
             break
         }
