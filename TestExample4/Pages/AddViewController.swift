@@ -34,17 +34,17 @@ class AddViewController: UITableViewController {
             showShortAlert(message: "Заполните поле зарплата!")
             return false
         }
-        let employee = [
-            "name" : nameField.text!,
-            "post" : postField.text!,
-            "status" : statusSwitch.isOn,
-            "wage" : UInt(wageField.text!) ?? 0,
-            "haveExp" : expSwitch.isOn,
-            "startDate" : startDatePicker.date
-            ] as [String : Any]
+        let employee = Person(context: PersistenceService.context)
+        employee.name = nameField.text!
+        employee.post = postField.text!
+        employee.status = statusSwitch.isOn
+        employee.wage = Int64(wageField.text!) ?? 0
+        employee.exp = expSwitch.isOn
+        employee.startDate = startDatePicker.date as NSDate
+        PersistenceService.saveContext()
         
         if UserDefaults.getPeopleList() != nil {
-            var arrayEpmloee = UserDefaults.getPeopleList()!
+            var arrayEpmloee: [Person] = []
             arrayEpmloee.append(employee)
             UserDefaults.standard.set(arrayEpmloee, forKey: "peopleList")
         } else {

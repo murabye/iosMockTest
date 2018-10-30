@@ -9,9 +9,14 @@
 import UIKit
 import CoreData
 
-class PersistanceSystem {
+class PersistenceService {
 
+    private init() {}
+    
     // MARK: - Core Data stack
+    static var context: NSManagedObjectContext{
+        return persistentContainer.viewContext
+    }
     
     static var persistentContainer: NSPersistentContainer = {
         /*
