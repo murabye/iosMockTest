@@ -7,20 +7,13 @@
 //
 
 import XCTest
+import CoreData
 @testable import TestExample4
 
 class TestExample4Tests: XCTestCase {
 
     override func setUp() {
-        UserDefaults.mockedFile = [[
-            "name" : "Vova",
-            "post" : "Professor",
-            "status" : true,
-            "wage" : UInt(8500),
-            "haveExp" : true,
-            "startDate" : Date.init()
-    ]]
-        UserDefaults.isDebug = true
+
     }
 
     override func tearDown() {
@@ -44,6 +37,17 @@ class TestExample4Tests: XCTestCase {
         vc.postField.text = "Professor"
         vc.wageField.text = ""
         XCTAssertEqual(false, vc.saveCheck())
+        
+        var emploeeArray: [Person] = []
+        let request: NSFetchRequest<Person> = Person.fetchRequest()
+        do{
+            emploeeArray = try PersistenceService.testContext.fetch(request)
+        } catch {}
+        for emploee in emploeeArray {
+            if emploee.name == "Vova"{
+                XCTAssertEqual("Professor", emploee.post)
+            }
+        }
     }
     
     func testChange() {
