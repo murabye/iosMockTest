@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ChangeViewController: UITableViewController {
     @IBOutlet weak var searchField: UITextField!
@@ -15,13 +16,23 @@ class ChangeViewController: UITableViewController {
     @IBOutlet weak var wageField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    var selectedEmployee: [String: Any]?
+    var selectedEmployee: Person?
     var selectedIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         saveButton.isEnabled = false
-        if UserDefaults.getPeopleList() == nil {
+        
+        var emploeeArray: [Person] = []
+        let request: NSFetchRequest<Person> = Person.fetchRequest()
+        do{
+            emploeeArray = try PersistenceService.context.fetch(request)
+        } catch {
+            showShortAlert(message: "Список пуст!")
+            searchField.isEnabled = false
+        }
+        
+        if emploeeArray.count < 1 {
             showShortAlert(message: "Список пуст!")
             searchField.isEnabled = false
         } else {
@@ -38,10 +49,16 @@ class ChangeViewController: UITableViewController {
             return false
         }
         
-        let emploeeArray = UserDefaults.getPeopleList()!
+        var emploeeArray: [Person] = []
+        let request: NSFetchRequest<Person> = Person.fetchRequest()
+        do{
+            emploeeArray = try PersistenceService.context.fetch(request)
+        } catch {}
+        
+        
         
         for i in 0..<emploeeArray.count {
-            if (emploeeArray[i]["name"] as! String) == searchField.text {
+            if emploeeArray[i].name == searchField.text {
                 selectedEmployee = emploeeArray[i]
                 selectedIndex = i
             }
@@ -51,9 +68,9 @@ class ChangeViewController: UITableViewController {
             showShortAlert(message: "Сотрудника с таким именем нет!")
             return false
         }
-        postField.placeholder = (selectedEmployee!["post"]! as! String)
-        statusSwitch.isOn = (selectedEmployee!["status"]! as! Bool)
-        wageField.placeholder = String(selectedEmployee!["wage"]! as! UInt)
+        postField.placeholder = selectedEmployee?.post
+        statusSwitch.isOn = (selectedEmployee?.status)!
+        wageField.placeholder = String((selectedEmployee?.wage)!)
         saveButton.isEnabled = true
         return true
     }
@@ -75,13 +92,11 @@ class ChangeViewController: UITableViewController {
             return false
         }
         
-        selectedEmployee!["post"] = postField.text
-        selectedEmployee!["status"] = statusSwitch.isOn
-        selectedEmployee!["wage"] = UInt(wageField.text!)!
+        selectedEmployee?.post = postField.text
+        selectedEmployee?.status = statusSwitch.isOn
+        selectedEmployee?.wage = Int64(wageField.text!)!
         
-        var employee = UserDefaults.getPeopleList()!
-        employee[selectedIndex!] = selectedEmployee!
-        UserDefaults.setPeopleList(peoples: employee)
+        PersistenceService.saveContext()
         
         postField.text = ""
         wageField.text = ""
