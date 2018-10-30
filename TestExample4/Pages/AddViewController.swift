@@ -43,13 +43,6 @@ class AddViewController: UITableViewController {
         employee.startDate = startDatePicker.date as NSDate
         PersistenceService.saveContext()
         
-        if UserDefaults.getPeopleList() != nil {
-            var arrayEpmloee: [Person] = []
-            arrayEpmloee.append(employee)
-            UserDefaults.standard.set(arrayEpmloee, forKey: "peopleList")
-        } else {
-            UserDefaults.standard.set([employee], forKey: "peopleList")
-        }
         showShortAlert(message: "Сохранено!")
         return true
     }
