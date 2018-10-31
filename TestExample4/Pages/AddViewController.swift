@@ -22,27 +22,17 @@ class AddViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     func saveCheck() -> Bool {
-        if nameField.text == "" {
-            showShortAlert(message: "Заполните поле имя!")
-            return false
-        }
-        if postField.text == "" {
-            showShortAlert(message: "Заполните поле должность!")
-            return false
-        }
-        if wageField.text == "" {
-            showShortAlert(message: "Заполните поле зарплата!")
-            return false
-        }
-        
         let employee = Person(context: PersistenceService.context)
+        
+        precondition(employee.name != "", "Заполните имя")
+        precondition(employee.post != "", "Заполните должность")
+        precondition((employee.startDate! as Date) <= Date(), "Невозможно устроить в будущем")
+        
         employee.name = nameField.text!
         employee.post = postField.text!
         employee.status = statusSwitch.isOn
         employee.wage = Int64(wageField.text!) ?? 0
-        precondition(employee.wage >= 0, "Зарплата меньше 0")
         employee.exp = expSwitch.isOn
-        precondition((employee.startDate! as Date) <= Date(), "Устройство в будущем")
         employee.startDate = startDatePicker.date as NSDate
 
         PersistenceService.saveContext()
