@@ -34,13 +34,17 @@ class AddViewController: UITableViewController {
             showShortAlert(message: "Заполните поле зарплата!")
             return false
         }
+        
         let employee = Person(context: PersistenceService.context)
         employee.name = nameField.text!
         employee.post = postField.text!
         employee.status = statusSwitch.isOn
         employee.wage = Int64(wageField.text!) ?? 0
+        precondition(employee.wage >= 0, "Зарплата меньше 0")
         employee.exp = expSwitch.isOn
+        precondition((employee.startDate! as Date) <= Date(), "Устройство в будущем")
         employee.startDate = startDatePicker.date as NSDate
+
         PersistenceService.saveContext()
         
         showShortAlert(message: "Сохранено!")
