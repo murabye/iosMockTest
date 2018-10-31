@@ -83,6 +83,9 @@ class ChangeViewController: UITableViewController {
     
     
     func saveCheck() -> Bool {
+        precondition(postField.text == "", "Поле профессии пустое")
+        precondition(wageField.text == "", "Поле зарплата пустое")
+        
         if postField.text == "" {
             showShortAlert(message: "Заполните поле должность!")
             return false
@@ -106,7 +109,7 @@ class ChangeViewController: UITableViewController {
     }
     
     @IBAction func saveAction(_ sender: Any) {
-        saveCheck()
+        assert(saveCheck(), "Сохранение не успешно")
     }
     
     func showShortAlert(message: String) {
