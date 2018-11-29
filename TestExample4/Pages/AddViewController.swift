@@ -24,9 +24,9 @@ class AddViewController: UITableViewController {
     func saveCheck() -> Bool {
         let employee = Person(context: PersistenceService.context)
         
-        precondition(employee.name != "", "Заполните имя")
-        precondition(employee.post != "", "Заполните должность")
-        precondition((employee.startDate! as Date) <= Date(), "Невозможно устроить в будущем")
+        //precondition(employee.name != "", "Заполните имя")
+        //precondition(employee.post != "", "Заполните должность")
+        //precondition((employee.startDate! as Date) <= Date(), "Невозможно устроить в будущем")
         
         employee.name = nameField.text!
         employee.post = postField.text!
