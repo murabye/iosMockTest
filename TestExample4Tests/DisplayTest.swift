@@ -7,40 +7,68 @@
 //
 
 import XCTest
+import CoreData
+
 @testable import TestExample4
 
 class DisplayTest: XCTestCase {
     
-    //     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
     override func setUp() {
-        UserDefaults.isDebug = true
+    }
+    
+    func cleanDB() {
+        let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try PersistenceService.context.fetch(fetchRequest)
+            for object in results {
+                guard let objectData = object as? NSManagedObject else {continue}
+                PersistenceService.context.delete(objectData)
+            }
+        } catch {}
     }
     
     func defaultMock() {
-        UserDefaults.mockedFile = [
-            ["name": "Вован",
-             "post": "говновоз",
-             "status": true,
-             "wage": 15,
-             "haveExp": false,
-             "startDate": Date()],
-            ["name": "Варенька",
-             "post": "умница",
-             "status": true,
-             "wage": 100500,
-             "haveExp": true,
-             "startDate": Date()],
-            ["name": "Лебедев",
-             "post": "главный электроник",
-             "status": false,
-             "wage": 15000,
-             "haveExp": false,
-             "startDate": Date()]
-        ]
+        cleanDB()
+        
+        addVova()
+        addVarya()
+        addLebedev()
+    }
+    
+    func addVova() {
+        let employee = Person(context: PersistenceService.context)
+        employee.name = "Вован"
+        employee.post = "Попа"
+        employee.status = true
+        employee.wage = 10
+        employee.exp = false
+        employee.startDate = Date() as NSDate
+        PersistenceService.saveContext()
+    }
+    func addVarya() {
+        let employee = Person(context: PersistenceService.context)
+        employee.name = "Варенька"
+        employee.post = "Главная умница"
+        employee.status = true
+        employee.wage = 1_000_000
+        employee.exp = true
+        employee.startDate = Date() as NSDate
+        PersistenceService.saveContext()
+    }
+    func addLebedev() {
+        let employee = Person(context: PersistenceService.context)
+        employee.name = "Лебедев"
+        employee.post = "Главный электроник"
+        employee.status = false
+        employee.wage = 1
+        employee.exp = false
+        employee.startDate = Date() as NSDate
+        PersistenceService.saveContext()
     }
     
     override func tearDown() {
+        cleanDB()
     }
     
     func test_SegmentDidChange_FirstSegment() {
@@ -106,14 +134,8 @@ class DisplayTest: XCTestCase {
     }
     
     func test_numberOfSection_1() {
-        UserDefaults.mockedFile = [
-            ["name": "Вован",
-             "post": "говновоз",
-             "status": true,
-             "wage": 15,
-             "haveExp": false,
-             "startDate": Date()]
-        ]
+        cleanDB()
+        addVova()
         
         let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "search") as! DisplayController
         vc.loadView()
@@ -145,7 +167,7 @@ class DisplayTest: XCTestCase {
         
         cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 1, section: 0))
         XCTAssertEqual(cell.textLabel?.text, "Должность")
-        XCTAssertEqual(cell.detailTextLabel?.text, "говновоз")
+        XCTAssertEqual(cell.detailTextLabel?.text, "Попа")
         
         cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 2, section: 0))
         XCTAssertEqual(cell.textLabel?.text, "Статус")
@@ -153,7 +175,7 @@ class DisplayTest: XCTestCase {
         
         cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 3, section: 0))
         XCTAssertEqual(cell.textLabel?.text, "Зарплата")
-        XCTAssertEqual(cell.detailTextLabel?.text, "15Р")
+        XCTAssertEqual(cell.detailTextLabel?.text, "10Р")
         
         cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 4, section: 0))
         XCTAssertEqual(cell.textLabel?.text, "Опыт при приеме")
