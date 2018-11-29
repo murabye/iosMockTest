@@ -48,6 +48,9 @@ class SignVC: UIViewController {
         return false
     }
     
+    @IBAction func closeKeyboard(_ sender: Any) {
+        self.view.endEditing(true)
+    }
     @IBAction func enterAction(_ sender: Any) {
         enterCheck()
     }

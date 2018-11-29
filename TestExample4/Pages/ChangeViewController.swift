@@ -77,14 +77,21 @@ class ChangeViewController: UITableViewController {
     
     @IBAction func searchAction(_ sender: Any) {
         searchCheck()
+        
+        
     }
     
 
     
     
     func saveCheck() -> Bool {
-        precondition(postField.text == "", "Поле профессии пустое")
-        precondition(wageField.text == "", "Поле зарплата пустое")
+       // precondition(postField.text == "", "Поле профессии пустое")
+       // precondition(wageField.text == "", "Поле зарплата пустое")
+        
+        guard let name = wageField.text else {
+            print("Поле зарплата пустое")
+            return false
+        }
         
         if postField.text == "" {
             showShortAlert(message: "Заполните поле должность!")

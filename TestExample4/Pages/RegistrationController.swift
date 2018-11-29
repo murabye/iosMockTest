@@ -63,5 +63,8 @@ class RegistrationController: UIViewController {
         }
     }
 
-
+    @IBAction func endEditing(_ sender: Any) {
+        self.view.endEditing(true)
+    }
+    
 }
