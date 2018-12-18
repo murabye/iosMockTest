@@ -13,7 +13,14 @@ import CoreData
 class TestExample4Tests: XCTestCase {
 
     override func setUp() {
-
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "add") as! AddViewController
+        vc.loadView()
+        vc.expSwitch.isOn = true
+        vc.nameField.text = "Vova"
+        vc.postField.text = "Professor"
+        vc.wageField.text = "5423"
+        vc.startDatePicker.date = Date.init()
+        vc.saveCheck()
     }
 
     override func tearDown() {
@@ -69,5 +76,52 @@ class TestExample4Tests: XCTestCase {
         XCTAssertEqual(true, vc.searchCheck())
         XCTAssertEqual(vc.wageField.placeholder, "145")
     }
+    
+    func testPerformanceRead() {
+        let request: NSFetchRequest<Person> = Person.fetchRequest()
+        measure {
+            for _ in 0...10000 {
+                do {
+                    try PersistenceService.context.fetch(request)
+                } catch {
+                    print("ERROR")
+                }
+                
+            }
+        }
+    }
+    
+    func testPerformanceReadBackground() {
+        
+        let request: NSFetchRequest<Person> = Person.fetchRequest()
+        measure {
+            //for i in 0...10 {
+                let thread = PersistenceService.persistentContainer.newBackgroundContext()
+                    for _ in 0...10{
+                        
+                        PersistenceService.persistentContainer.performBackgroundTask({ (context) in
+                            for _ in 0...1000{
+                                do {
+                                    try context.fetch(request)
+                                } catch {
+                                    print("ERROR")
+                                }
+                            }
+                        })
+                    }
+
+                
+            //}
+        }
+    }
+    
+    //private let perStore = NSPersistentStoreCoordinator.init(managedObjectModel: <#T##NSManagedObjectModel#>)
+   /* private lazy var privateManagedObjectContex: NSManagedObjectContext = {
+        var manageObjectContex = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        
+        manageObjectContex.persistentStoreCoordinator = perStore
+        
+        return manageObjectContex
+    }()*/
 
 }
